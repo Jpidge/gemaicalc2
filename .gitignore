@@ -10,4 +10,5 @@ coverage/
 
 # Enable GitHub Pages zero-config deployment from branch
 !docs/
+!assets/
 !commodore-110-standalone.html

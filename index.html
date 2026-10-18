@@ -132,55 +132,39 @@
     <script>
       (function() {
         var host = window.location.hostname;
-        var protocol = window.location.protocol;
-        
-        // Determine if we are on a development server that transpiles .tsx
         var isDevServer = (window.location.port === '3000') ||
                           (host === 'localhost') ||
                           (host === '127.0.0.1') ||
-                          host.includes('run.app'); // Google Cloud Run preview environment
-
-        // Determine if we are on GitHub Pages or local file
-        var isGitHubPages = host.endsWith('github.io') || host.endsWith('gitlab.io');
-        var isFileProtocol = protocol === 'file:';
+                          host.includes('run.app');
 
         function triggerFallback(reason) {
+          var root = document.getElementById('root');
+          // If React already mounted, do nothing
+          if (!root || !root.querySelector('.boot-loader')) {
+            return;
+          }
           var status = document.getElementById('boot-status-text');
           var notice = document.getElementById('static-host-notice');
           if (status) {
-            status.innerHTML = '<span style="color:#f59e0b;">LAUNCHING STANDALONE COMMODORE 110 BUILD...</span>';
+            status.innerHTML = '<span style="color:#ef4444;">RAW SOURCE DETECTED ON STATIC HOST</span>';
           }
           if (notice) {
             notice.style.display = 'block';
           }
-
-          // Automatically navigate to the pre-compiled standalone single-file bundle
-          try {
-            var targetUrl = './commodore-110-standalone.html' + window.location.search + window.location.hash;
-            window.location.replace(targetUrl);
-          } catch (e) {
-            console.log('Navigation to standalone bundle:', e);
-          }
         }
 
-        // If explicitly running on static host like GitHub Pages or file://, jump to standalone immediately
-        if (isGitHubPages || isFileProtocol) {
-          triggerFallback('Static Host Detected');
-          return;
-        }
-
-        // Global error catcher for module loading failures
+        // Global error catcher for module loading failures (e.g. browser cannot execute /src/main.tsx)
         window.handleModuleError = function() {
           triggerFallback('Script Load Failure');
         };
 
-        // Watchdog: If React has not mounted and replaced #root after 1200ms
+        // Watchdog: If React has not mounted and replaced #root after 3500ms on a static host
         window.setTimeout(function() {
           var root = document.getElementById('root');
           if (root && root.querySelector('.boot-loader') && !isDevServer) {
             triggerFallback('Watchdog Timeout');
           }
-        }, 1200);
+        }, 3500);
       })();
     </script>
     <script type="module" src="/src/main.tsx" onerror="window.handleModuleError && window.handleModuleError()"></script>
