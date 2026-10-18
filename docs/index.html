@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commodore 110: Cellular Automata Mechanical Calculator</title>
+    <meta name="description" content="An 8-bit first-principles digital calculator and ALU built from Rule 110 cellular automata and Google Sheets formulas with vintage Commodore handheld aesthetics." />
+    <meta property="og:title" content="Commodore 110: Cellular Automata Mechanical Calculator" />
+    <meta property="og:description" content="An 8-bit first-principles digital calculator and ALU built from Rule 110 cellular automata and Google Sheets formulas with vintage Commodore handheld aesthetics." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,300..700;1,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <style>body{color:#e2e8f0;background-color:#111317;margin:0;font-family:Share Tech Mono,monospace,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas}.boot-loader{background:radial-gradient(circle,#1b1e25 0%,#101216 100%);flex-direction:column;justify-content:center;align-items:center;min-height:100vh;padding:2rem;display:flex}.boot-box{background:#171920;border:2px solid #333846;border-radius:12px;width:100%;max-width:560px;padding:1.75rem;box-shadow:0 20px 40px #0009}.boot-title{color:#f59e0b;letter-spacing:.05em;align-items:center;gap:.5rem;margin-bottom:.75rem;font-size:1.15rem;font-weight:700;display:flex}.pulse-dot{background-color:#ef4444;border-radius:50%;width:10px;height:10px;animation:1s infinite alternate pulse;display:inline-block}@keyframes pulse{0%{opacity:.3;transform:scale(.9)}to{opacity:1;transform:scale(1.1);box-shadow:0 0 8px #ef4444}}.boot-text{color:#94a3b8;font-size:.85rem;line-height:1.6}.static-host-notice{color:#fef3c7;background:#1e1b12;border:1px solid #78350f;border-radius:8px;margin-top:1.25rem;padding:1.25rem;font-size:.85rem;display:none}.launch-btn{color:#fff;text-align:center;background:#d97706;border-radius:6px;margin-top:.75rem;padding:.6rem 1.2rem;font-weight:700;text-decoration:none;transition:background .15s;display:inline-block;box-shadow:0 2px 8px #d9770666}.launch-btn:hover{background:#f59e0b}</style>
+    <script type="module" crossorigin src="./assets/index-Il1f0dHU.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C9E1PXXp.css">
+  </head>
+  <body class="bg-[#121418] text-slate-100 antialiased selection:bg-amber-600/30 selection:text-amber-200">
+    <div id="root">
+      <!-- Fallback Boot Sequence replaced automatically by React on mount -->
+      <div class="boot-loader">
+        <div class="boot-box">
+          <div class="boot-title">
+            <span class="pulse-dot"></span>
+            COMMODORE 110 BASIC V2
+          </div>
+          <div class="boot-text">
+            <div>64K RAM SYSTEM &bull; 38911 BYTES FREE</div>
+            <div style="color: #38bdf8; margin: 0.5rem 0;">READY.</div>
+            <div id="boot-status-text">INITIALIZING RULE 110 CELLULAR ALU PIPELINE...</div>
+          </div>
+
+          <div id="static-host-notice" class="static-host-notice">
+            <strong style="color: #f59e0b; font-size: 0.95rem;">⚡ Static Host / GitHub Pages Detected</strong>
+            <p style="margin: 0.5rem 0; color: #cbd5e1; font-size: 0.8rem; line-height: 1.5;">
+              You pushed this repository to GitHub! Browsers cannot execute raw TypeScript JSX files (<code style="color: #fca5a5;">/src/main.tsx</code>) directly without a build step.
+            </p>
+            <p style="margin: 0.5rem 0; color: #cbd5e1; font-size: 0.8rem; line-height: 1.5;">
+              We have automatically included the pre-compiled, self-contained standalone build right in this repository.
+            </p>
+            <div style="margin-top: 0.75rem;">
+              <a id="standalone-launch-link" href="./commodore-110-standalone.html" class="launch-btn">
+                ▶ LAUNCH STANDALONE CALCULATOR
+              </a>
+            </div>
+            <div style="margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px dashed #78350f; font-size: 0.75rem; color: #94a3b8;">
+              Tip: In GitHub Repo <strong>Settings &rarr; Pages</strong>, set source to <strong>Deploy from branch: /docs</strong> or <strong>GitHub Actions</strong> to serve the full app from the root URL.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        var host = window.location.hostname;
+        var protocol = window.location.protocol;
+        
+        // Determine if we are on a development server that transpiles .tsx
+        var isDevServer = (window.location.port === '3000') ||
+                          (host === 'localhost') ||
+                          (host === '127.0.0.1') ||
+                          host.includes('run.app'); // Google Cloud Run preview environment
+
+        // Determine if we are on GitHub Pages or local file
+        var isGitHubPages = host.endsWith('github.io') || host.endsWith('gitlab.io');
+        var isFileProtocol = protocol === 'file:';
+
+        function triggerFallback(reason) {
+          var status = document.getElementById('boot-status-text');
+          var notice = document.getElementById('static-host-notice');
+          if (status) {
+            status.innerHTML = '<span style="color:#f59e0b;">LAUNCHING STANDALONE COMMODORE 110 BUILD...</span>';
+          }
+          if (notice) {
+            notice.style.display = 'block';
+          }
+
+          // Automatically navigate to the pre-compiled standalone single-file bundle
+          try {
+            var targetUrl = './commodore-110-standalone.html' + window.location.search + window.location.hash;
+            window.location.replace(targetUrl);
+          } catch (e) {
+            console.log('Navigation to standalone bundle:', e);
+          }
+        }
+
+        // If explicitly running on static host like GitHub Pages or file://, jump to standalone immediately
+        if (isGitHubPages || isFileProtocol) {
+          triggerFallback('Static Host Detected');
+          return;
+        }
+
+        // Global error catcher for module loading failures
+        window.handleModuleError = function() {
+          triggerFallback('Script Load Failure');
+        };
+
+        // Watchdog: If React has not mounted and replaced #root after 1200ms
+        window.setTimeout(function() {
+          var root = document.getElementById('root');
+          if (root && root.querySelector('.boot-loader') && !isDevServer) {
+            triggerFallback('Watchdog Timeout');
+          }
+        }, 1200);
+      })();
+    </script>
+  </body>
+</html>

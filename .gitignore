@@ -1,0 +1,13 @@
+node_modules/
+build/
+dist/
+dist-single/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Enable GitHub Pages zero-config deployment from branch
+!docs/
+!commodore-110-standalone.html
